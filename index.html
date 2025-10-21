@@ -1,0 +1,303 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Anan22岁生日快乐</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+        .card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .age-spotlight {
+            color: #ff6b6b;
+            font-size: 80px;
+            font-weight: bold;
+            margin: 25px 0;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .intro-text {
+            color: #666;
+            margin: 15px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .reveal-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 25px 0 15px 0;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+        .decoration {
+            font-size: 24px;
+            margin: 0 8px;
+        }
+        .blessing-card {
+            display: none;
+            text-align: left;
+        }
+        .message {
+            background: rgba(255,107,107,0.1);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+            line-height: 1.6;
+        }
+        .special {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        .signature {
+            text-align: right;
+            font-style: italic;
+            color: #666;
+            margin-top: 30px;
+        }
+        
+        /* 蛋糕样式 */
+        .cake-container {
+            margin: 30px 0;
+            position: relative;
+            height: 200px;
+        }
+        .cake {
+            position: relative;
+            width: 120px;
+            height: 60px;
+            background: #ff8e8e;
+            border-radius: 10px 10px 0 0;
+            margin: 0 auto;
+        }
+        .cake-top {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            width: 100px;
+            height: 20px;
+            background: #ff6b6b;
+            border-radius: 50%;
+        }
+        .candle {
+            position: absolute;
+            width: 4px;
+            height: 25px;
+            background: #fff;
+            top: -35px;
+            border-radius: 2px;
+        }
+        .flame {
+            position: absolute;
+            width: 8px;
+            height: 12px;
+            background: #ffd93d;
+            border-radius: 50% 50% 20% 20%;
+            top: -48px;
+            left: -2px;
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 10px #ff6b6b;
+        }
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.1); opacity: 0.8; }
+        }
+        .cake-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 欢迎页面 -->
+        <div class="card" id="welcomeCard">
+            <h1>🎉 Hapy birthday,anan 🎉</h1>
+            <p class="intro-text">这份特别的祝福，专为今天的主角准备啦</p>
+            
+            <div class="age-spotlight">22</div>
+            
+            <p class="intro-text">欢迎开启22岁的精彩旅程呀！</p>
+            
+            <div style="margin: 25px 0;">
+                <span class="decoration">🎈</span>
+                <span class="decoration">🎁</span>
+                <span class="decoration">✨</span>
+                <span class="decoration">🎂</span>
+                <span class="decoration">🌟</span>
+            </div>
+            
+            <button class="reveal-btn" onclick="showBlessing()">开启我的祝福 ✨</button>
+        </div>
+
+        <!-- 祝福页面 -->
+        <div class="card blessing-card" id="blessingCard">
+            <h1>🎂 Anan呀，22岁生日快乐！ 🎂</h1>
+            
+            <div class="message">
+                <p>亲爱的Anan，嘿嘿</p>
+            </div>
+            
+            <div class="message">
+                <p>在这个特别的日子里，衷心祝福你迎来了<span class="special">22岁</span>的美好年华呀！</p>
+            </div>
+            
+            <div class="message">
+                <p><span class="special">22岁啦</span>Js陪你走过又一个春夏秋冬。</p>
+                <p>你的坚定跟随，让我不甘落后啦</p>
+                    <p>（虽然没有先后之分，但是我呀，就是好羡慕好羡慕安安呀😁😁）</p>
+                <p>我呀，看着你在热爱里发光，挑战中成长，真的特别特别为你开心。</p>
+                <p>新一岁，愿你所求皆如愿，所行皆坦途（虽然肯定会有很多困难，但是我知道，困难打不倒你呀）。
+                    <p>哈哈，也祝愿你在新的一年在神的道上以及在他为你预备的语言和文化上更加的精进啦。</p>
+                <p>生日快乐，安安。</p>
+            </div>
+            
+            <!-- 蛋糕区域 -->
+            <div class="cake-container" id="cakeContainer">
+                <!-- 蛋糕将通过JavaScript动态生成 -->
+            </div>
+            
+            <button class="cake-btn" onclick="createCake()">🎂 点亮生日蛋糕 🎂</button>
+            
+            <div class="signature">
+                <p>永远支持你的超哥啦</p>
+                <p>❤️ ✨ 🎊</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showBlessing() {
+            document.getElementById('welcomeCard').style.display = 'none';
+            document.getElementById('blessingCard').style.display = 'block';
+            createCelebration();
+        }
+        
+        function createCelebration() {
+            const emojis = ['🎉', '🎊', '✨', '🌟', '🥳'];
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.fontSize = '20px';
+                    confetti.style.zIndex = '9999';
+                    document.body.appendChild(confetti);
+                    
+                    confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(360deg)`, opacity: 0 }
+                    ], { duration: 3000 }).onfinish = () => confetti.remove();
+                }, i * 200);
+            }
+        }
+        
+        function createCake() {
+            const container = document.getElementById('cakeContainer');
+            container.innerHTML = '';
+            
+            // 创建蛋糕
+            const cake = document.createElement('div');
+            cake.className = 'cake';
+            
+            const cakeTop = document.createElement('div');
+            cakeTop.className = 'cake-top';
+            
+            cake.appendChild(cakeTop);
+            
+            // 创建22根蜡烛
+            for (let i = 0; i < 22; i++) {
+                const candle = document.createElement('div');
+                candle.className = 'candle';
+                candle.style.left = (5 + i * 5) + 'px';
+                
+                const flame = document.createElement('div');
+                flame.className = 'flame';
+                flame.id = 'flame-' + i;
+                
+                candle.appendChild(flame);
+                cake.appendChild(candle);
+            }
+            
+            container.appendChild(cake);
+            
+            // 自动熄灭蜡烛
+            blowOutCandles();
+        }
+        
+        function blowOutCandles() {
+            let candlesBlown = 0;
+            const totalCandles = 22;
+            
+            function blowNextCandle() {
+                if (candlesBlown < totalCandles) {
+                    const flame = document.getElementById('flame-' + candlesBlown);
+                    if (flame) {
+                        // 蜡烛熄灭动画
+                        flame.animate([
+                            { transform: 'scale(1)', opacity: 1 },
+                            { transform: 'scale(1.5)', opacity: 0 }
+                        ], {
+                            duration: 300,
+                            easing: 'ease-out'
+                        }).onfinish = () => {
+                            flame.style.display = 'none';
+                            candlesBlown++;
+                            blowNextCandle();
+                        };
+                    }
+                } else {
+                    // 所有蜡烛熄灭后显示祝福
+                    setTimeout(() => {
+                        alert('🎉 许愿成功啦！小安在跟随js的步伐上一定会更加坚定啦！ 🎉');
+                    }, 500);
+                }
+            }
+            
+            // 延迟开始熄灭蜡烛
+            setTimeout(() => {
+                blowNextCandle();
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
