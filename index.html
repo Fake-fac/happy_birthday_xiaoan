@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -56,8 +55,21 @@
             font-size: 80px;
             font-weight: bold;
             margin: 25px 0;
-            animation: pulse 2s infinite;
             text-shadow: 3px 3px 0 rgba(255, 107, 107, 0.2);
+            min-height: 96px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .counting-animation {
+            animation: countPulse 0.3s ease-out;
+        }
+        
+        @keyframes countPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
         
         @keyframes pulse {
@@ -87,7 +99,14 @@
             transition: all 0.3s ease;
         }
         
-        .reveal-btn:active, .cake-btn:active {
+        .reveal-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .reveal-btn:active:not(:disabled), .cake-btn:active {
             transform: scale(0.95);
         }
         
@@ -201,6 +220,32 @@
             }
         }
         
+        /* 烟花样式 */
+        .firework {
+            position: fixed;
+            pointer-events: none;
+            z-index: 8;
+        }
+        
+        .firework-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: firework-explode 1.5s ease-out forwards;
+        }
+        
+        @keyframes firework-explode {
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+        
         /* 微信兼容性优化 */
         @media (max-width: 480px) {
             .card {
@@ -213,6 +258,7 @@
             
             .age-spotlight {
                 font-size: 70px;
+                min-height: 84px;
             }
             
             .reveal-btn, .cake-btn {
@@ -229,9 +275,9 @@
             <h1>🎉 小安姐生日祝福 🎉</h1>
             <p class="intro-text">这份特别的祝福，专为今天的主角准备</p>
             
-            <div class="age-spotlight">22</div>
+            <div class="age-spotlight" id="ageCounter">1</div>
             
-            <p class="intro-text">欢迎开启22岁的精彩旅程！</p>
+            <p class="intro-text" id="countingText">正在为你准备22岁的惊喜...</p>
             
             <div style="margin: 25px 0;">
                 <span class="decoration">🎈</span>
@@ -241,7 +287,7 @@
                 <span class="decoration">🌟</span>
             </div>
             
-            <button class="reveal-btn" onclick="showBlessing()">开启我的祝福 ✨</button>
+            <button class="reveal-btn" id="revealBtn" disabled onclick="showBlessing()">开启我的祝福 ✨</button>
         </div>
 
         <!-- 祝福页面 -->
@@ -274,6 +320,72 @@
     </div>
 
     <script>
+        // 页面加载时开始数字计数动画
+        window.onload = function() {
+            startCountingAnimation();
+        };
+        
+        // 数字从1数到22的动画
+        function startCountingAnimation() {
+            const ageElement = document.getElementById('ageCounter');
+            const countingText = document.getElementById('countingText');
+            const revealBtn = document.getElementById('revealBtn');
+            let currentNumber = 1;
+            
+            const countInterval = setInterval(() => {
+                // 添加计数动画效果
+                ageElement.classList.remove('counting-animation');
+                void ageElement.offsetWidth; // 触发重绘
+                ageElement.classList.add('counting-animation');
+                
+                ageElement.textContent = currentNumber;
+                
+                if (currentNumber === 22) {
+                    clearInterval(countInterval);
+                    // 计数完成后的效果
+                    ageElement.style.animation = 'pulse 2s infinite';
+                    countingText.textContent = '欢迎开启22岁的精彩旅程！';
+                    revealBtn.disabled = false;
+                    revealBtn.innerHTML = '开启我的祝福 ✨';
+                    
+                    // 计数完成庆祝效果
+                    createCountCompleteCelebration();
+                }
+                
+                currentNumber++;
+            }, 100); // 每100毫秒计数一次
+        }
+        
+        // 计数完成时的庆祝效果
+        function createCountCompleteCelebration() {
+            const emojis = ['🎉', '🎊', '✨', '🌟'];
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    confetti.style.position = 'fixed';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-50px';
+                    confetti.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.pointerEvents = 'none';
+                    document.body.appendChild(confetti);
+                    
+                    confetti.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: Math.random() * 2000 + 2000,
+                        easing: 'cubic-bezier(0.1, 0.2, 0.8, 0.9)'
+                    }).onfinish = () => {
+                        if (confetti.parentNode) {
+                            confetti.parentNode.removeChild(confetti);
+                        }
+                    };
+                }, i * 200);
+            }
+        }
+        
         // 显示祝福页面
         function showBlessing() {
             document.getElementById('welcomeCard').style.display = 'none';
@@ -281,6 +393,9 @@
             
             // 开始小蛋糕掉落动画
             startCakeRain();
+            
+            // 开始烟花绽放动画
+            startFireworks();
             
             // 庆祝效果
             createCelebration();
@@ -310,6 +425,62 @@
                     cake.parentNode.removeChild(cake);
                 }
             }, 8000);
+        }
+        
+        // 烟花绽放效果
+        function startFireworks() {
+            setInterval(() => {
+                createFirework();
+            }, 800); // 与小蛋糕掉落速度同步，每800毫秒一个烟花
+        }
+        
+        // 创建单个烟花
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            
+            // 随机位置
+            const x = Math.random() * 80 + 10; // 10% - 90% 宽度
+            const y = Math.random() * 50 + 20; // 20% - 70% 高度
+            
+            firework.style.left = x + 'vw';
+            firework.style.top = y + 'vh';
+            
+            // 烟花颜色
+            const colors = [
+                '#ff6b6b', '#ff8e53', '#ffd93d', '#6bcf7f', 
+                '#4d96ff', '#9d4dff', '#ff4da1', '#ff8e4d'
+            ];
+            
+            // 创建烟花粒子
+            const particleCount = 30 + Math.floor(Math.random() * 20);
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework-particle';
+                
+                // 随机角度和距离
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const distance = 50 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDuration = (0.8 + Math.random() * 0.7) + 's';
+                
+                firework.appendChild(particle);
+            }
+            
+            document.body.appendChild(firework);
+            
+            // 动画结束后移除烟花
+            setTimeout(() => {
+                if (firework.parentNode) {
+                    firework.parentNode.removeChild(firework);
+                }
+            }, 1500);
         }
         
         // 创建主蛋糕
