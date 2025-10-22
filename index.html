@@ -154,56 +154,140 @@
             margin-top: 30px;
         }
 
-        /* 蛋糕容器样式 */
+        /* 蛋糕容器样式（加高以容纳下落动画） */
         .cake-container {
             margin: 30px 0;
             position: relative;
-            height: 200px;
+            height: 280px; /* 加高容器，给下落动画留空间 */
+            overflow: visible;
         }
 
+        /* 三层蛋糕基础样式（带层次感和纹理） */
         .cake {
-            position: relative;
-            width: 120px;
+            position: absolute;
+            width: 180px; /* 加宽蛋糕，更显真实 */
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0; /* 初始隐藏，等待下落动画 */
+            animation: cakeFall 1s ease-out forwards;
+        }
+
+        /* 蛋糕底层（最宽） */
+        .cake-layer-1 {
             height: 60px;
             background: #ff8e8e;
             border-radius: 10px 10px 0 0;
-            margin: 0 auto;
+            position: relative;
+            border-top: 3px dashed #ff6b6b; /* 纹理装饰 */
         }
 
+        /* 蛋糕中层 */
+        .cake-layer-2 {
+            height: 50px;
+            background: #ff9d9d;
+            margin: 0 auto;
+            width: 150px; /* 中层比底层窄 */
+            border-top: 3px dashed #ff7a7a;
+            position: relative;
+        }
+
+        /* 蛋糕顶层（最窄） */
+        .cake-layer-3 {
+            height: 40px;
+            background: #ffadad;
+            margin: 0 auto;
+            width: 120px; /* 顶层最窄 */
+            border-radius: 10px 10px 0 0;
+            border-top: 3px dashed #ff8a8a;
+            position: relative;
+        }
+
+        /* 蛋糕顶层奶油装饰 */
         .cake-top {
             position: absolute;
-            top: -10px;
+            top: -15px;
             left: 10px;
             width: 100px;
-            height: 20px;
+            height: 25px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            box-shadow: 0 3px 0 rgba(230, 80, 80, 0.5); /* 阴影增强立体感 */
+        }
+
+        /* 奶油点缀（增加真实感） */
+        .cream-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
             background: #ff6b6b;
             border-radius: 50%;
         }
 
+        /* 蜡烛样式（初始隐藏，等待下落） */
         .candle {
             position: absolute;
-            width: 4px;
-            height: 25px;
+            width: 5px;
+            height: 30px;
             background: #fff;
-            top: -35px;
             border-radius: 2px;
+            bottom: 100%; /* 初始在蛋糕顶部上方 */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: candleFall 0.8s ease-out forwards;
+            animation-delay: 1s; /* 蜡烛比蛋糕晚下落，模拟依次掉落 */
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); /* 蜡烛纹理 */
         }
 
+        /* 蜡烛火焰 */
         .flame {
             position: absolute;
-            width: 8px;
-            height: 12px;
-            background: #ffd9d3;
+            width: 10px;
+            height: 15px;
+            background: linear-gradient(180deg, #ffd9d3, #ff9a3c); /* 渐变火焰，更真实 */
             border-radius: 50% 50% 20% 20%;
-            top: -48px;
-            left: -2px;
+            top: -18px;
+            left: -2.5px;
             animation: flicker 0.5s infinite alternate;
-            box-shadow: 0 0 10px #ff6b6b;
+            box-shadow: 0 0 12px #ff6b6b, 0 0 8px rgba(255,107,107,0.6); /* 火焰光晕 */
         }
 
         @keyframes flicker {
             0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.1); opacity: 0.8; }
+            100% { transform: scale(1.15); opacity: 0.9; }
+        }
+
+        /* 蛋糕下落动画（从上方掉落到容器底部） */
+        @keyframes cakeFall {
+            0% { 
+                transform: translateX(-50%) translateY(-300px); /* 初始在容器上方 */
+                opacity: 0; 
+            }
+            80% { 
+                transform: translateX(-50%) translateY(10px); /* 轻微下坠后回弹 */
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateX(-50%) translateY(0); /* 最终停在容器底部 */
+                opacity: 1; 
+            }
+        }
+
+        /* 蜡烛下落动画（从更上方掉落，落在蛋糕顶层） */
+        @keyframes candleFall {
+            0% { 
+                transform: translateX(-50%) translateY(-200px); /* 初始在蛋糕上方更高处 */
+                opacity: 0; 
+            }
+            80% { 
+                transform: translateX(-50%) translateY(5px); /* 轻微下坠后回弹 */
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateX(-50%) translateY(0); /* 最终落在蛋糕顶层 */
+                opacity: 1; 
+            }
         }
 
         /* 掉落的小蛋糕样式 */
@@ -268,6 +352,26 @@
                 padding: 14px 35px;
                 font-size: 16px;
             }
+
+            /* 移动端蛋糕尺寸适配 */
+            .cake {
+                width: 150px;
+            }
+            .cake-layer-1 {
+                height: 50px;
+            }
+            .cake-layer-2 {
+                height: 45px;
+                width: 125px;
+            }
+            .cake-layer-3 {
+                height: 35px;
+                width: 100px;
+            }
+            .cake-top {
+                width: 80px;
+                height: 20px;
+            }
         }
     </style>
 </head>
@@ -293,7 +397,7 @@
         <div class="card blessing-card" id="blessingCard">
             <h1>🎂 Anan, 22岁生日快乐啦! 🎂</h1>
             <div class="message">
-                <p>亲爱的Anan,</p>
+                <p>亲爱的Anan小姐,</p>
             </div>
 
             <div class="message">
@@ -302,14 +406,15 @@
                 <p><span class="special">22岁啦</span>，Js陪你走过又一个春夏秋冬。</p>
                 <br />
                 <p>我呀，看见你在热爱里发光，挑战中成长，真的特别特别为你开心。</p>
+                <br />
                 <p>你的坚定跟随，让我知道多大的艰难拦阻都抵挡不了我们的脚步。2547是爱主一生的意思，哈哈我肯定猜对啦。</p>
                 <p>（虽然没有先后之分，但是我呀，就是好羡慕好羡慕安安呀😊😊）</p>
                 <br />
                 <p>新一岁，愿你所求皆如愿，所行皆坦途（虽然肯定会有很多困难，但是我知道，困难打不倒你呀）。</p>
                 <br />
                 <p>哈哈，也祝愿你在新的一年在神的道上以及在他为你预备的语言和文化上更加的精进啦。</p>
+                <br />
                 <p>愿你享受从神而来的平安和喜乐、靠着神行事说话。</p>
-                
             </div>
 
             <div class="message">
@@ -491,40 +596,85 @@
             }, 1500);
         }
 
-        // 创建主蛋糕
+        // 创建三层蛋糕（含下落动画和奶油装饰）
         function createCake() {
             const container = document.getElementById('cakeContainer');
-            container.innerHTML = '';
+            container.innerHTML = ''; // 清空容器
 
+            // 1. 创建蛋糕主体（三层结构）
             const cake = document.createElement('div');
             cake.className = 'cake';
 
+            // 蛋糕底层
+            const layer1 = document.createElement('div');
+            layer1.className = 'cake-layer-1';
+            // 底层奶油点缀（3个）
+            addCreamDots(layer1, 3, 15, 20); 
+            cake.appendChild(layer1);
+
+            // 蛋糕中层
+            const layer2 = document.createElement('div');
+            layer2.className = 'cake-layer-2';
+            // 中层奶油点缀（2个）
+            addCreamDots(layer2, 2, 25, 15); 
+            cake.appendChild(layer2);
+
+            // 蛋糕顶层
+            const layer3 = document.createElement('div');
+            layer3.className = 'cake-layer-3';
+            // 顶层奶油点缀（1个）
+            addCreamDots(layer3, 1, 45, 10); 
+            cake.appendChild(layer3);
+
+            // 蛋糕顶层奶油
             const cakeTop = document.createElement('div');
             cakeTop.className = 'cake-top';
+            layer3.appendChild(cakeTop);
 
-            cake.appendChild(cakeTop);
+            // 2. 创建蜡烛（22根，均匀分布在顶层）
+            const candleContainer = document.createElement('div');
+            candleContainer.style.position = 'absolute';
+            width = 120; // 顶层宽度
+            const candleCount = 22;
+            const candleSpacing = width / (candleCount + 1); // 蜡烛间距
 
-            // 创建22根蜡烛
-            for (let i = 0; i < 22; i++) {
+            for (let i = 0; i < candleCount; i++) {
                 const candle = document.createElement('div');
                 candle.className = 'candle';
-                candle.style.left = (5 + i * 5) + 'px';
+                // 计算蜡烛水平位置（均匀分布）
+                candle.style.left = (candleSpacing * (i + 1) - 2.5) + 'px'; // -2.5px 是蜡烛半宽，居中对齐
 
                 const flame = document.createElement('div');
                 flame.className = 'flame';
-                flame.id = 'flame-' + i;
+                flame.id = 'flame-' + i; // 给火焰加ID，用于后续熄灭动画
 
                 candle.appendChild(flame);
-                cake.appendChild(candle);
+                candleContainer.appendChild(candle);
             }
 
+            // 3. 组装蛋糕和蜡烛
+            cake.appendChild(candleContainer);
             container.appendChild(cake);
 
-            // 自动熄灭蜡烛
-            blowOutCandles();
+            // 4. 自动熄灭蜡烛（保持原有逻辑）
+            setTimeout(() => {
+                blowOutCandles();
+            }, 2000); // 延迟2秒再熄灭，给用户看清楚蛋糕组合效果
         }
 
-        // 熄灭蜡烛动画
+        // 给蛋糕层添加奶油点缀（增强真实感）
+        function addCreamDots(layer, count, leftStep, top) {
+            for (let i = 0; i < count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'cream-dot';
+                // 均匀分布奶油点
+                dot.style.left = (leftStep + (i * 40)) + '%'; 
+                dot.style.top = top + 'px';
+                layer.appendChild(dot);
+            }
+        }
+
+        // 熄灭蜡烛动画（保持原有逻辑）
         function blowOutCandles() {
             let candlesBlown = 0;
             const totalCandles = 22;
@@ -535,7 +685,7 @@
                     if (flame) {
                         flame.animate([
                             { transform: 'scale(1)', opacity: 1 },
-                            { transform: 'scale(1.5)', opacity: 0 }
+                            { transform: 'scale(1.5) translateX(3px)', opacity: 0 } // 火焰向右侧熄灭，更自然
                         ], {
                             duration: 300,
                             easing: 'ease-out'
@@ -546,15 +696,14 @@
                         };
                     }
                 } else {
+                    // 所有蜡烛熄灭后显示许愿弹窗
                     setTimeout(() => {
                         alert('🎉 许愿成功！愿你在跟随Js的这条道路上力上加力，恩上加恩！');
                     }, 500);
                 }
             }
 
-            setTimeout(() => {
-                blowNextCandle();
-            }, 1000);
+            blowNextCandle();
         }
 
         // 庆祝效果
