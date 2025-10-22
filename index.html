@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -154,138 +154,190 @@
             margin-top: 30px;
         }
 
-        /* 蛋糕容器样式（加高以容纳下落动画） */
+        /* 蛋糕容器样式 */
         .cake-container {
             margin: 30px 0;
             position: relative;
-            height: 280px; /* 加高容器，给下落动画留空间 */
+            height: 280px;
             overflow: visible;
         }
 
-        /* 三层蛋糕基础样式（带层次感和纹理） */
+        /* 蛋糕主体（下宽上窄） */
         .cake {
             position: absolute;
-            width: 180px; /* 加宽蛋糕，更显真实 */
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            opacity: 0; /* 初始隐藏，等待下落动画 */
+            opacity: 0;
             animation: cakeFall 1s ease-out forwards;
         }
 
-        /* 蛋糕底层（最宽） */
+        /* 蛋糕底层（真实蛋糕胚色） */
         .cake-layer-1 {
             height: 60px;
-            background: #ff8e8e;
-            border-radius: 10px 10px 0 0;
+            width: 180px; /* 最宽层 */
+            background: #e6c29e; /* 浅棕，模拟蛋糕胚 */
+            border-radius: 0 0 10px 10px;
             position: relative;
-            border-top: 3px dashed #ff6b6b; /* 纹理装饰 */
+            /* 蛋糕胚纹理：横向条纹 */
+            background-image: linear-gradient(to right, transparent 0%, transparent 95%, rgba(0,0,0,0.05) 95%, rgba(0,0,0,0.05) 100%);
+            background-size: 15px 100%;
         }
 
-        /* 蛋糕中层 */
+        /* 蛋糕中层（夹馅色） */
         .cake-layer-2 {
             height: 50px;
-            background: #ff9d9d;
+            width: 150px; /* 中间宽 */
+            background: #f5d7b4; /* 浅黄棕，模拟夹馅 */
             margin: 0 auto;
-            width: 150px; /* 中层比底层窄 */
-            border-top: 3px dashed #ff7a7a;
             position: relative;
+            /* 夹馅纹理：点状 */
+            background-image: radial-gradient(rgba(0,0,0,0.05) 2px, transparent 2px);
+            background-size: 10px 10px;
         }
 
-        /* 蛋糕顶层（最窄） */
+        /* 蛋糕顶层（蛋糕胚色） */
         .cake-layer-3 {
             height: 40px;
-            background: #ffadad;
+            width: 120px; /* 最窄层 */
+            background: #e6c29e; /* 与底层一致的蛋糕胚色 */
             margin: 0 auto;
-            width: 120px; /* 顶层最窄 */
             border-radius: 10px 10px 0 0;
-            border-top: 3px dashed #ff8a8a;
             position: relative;
+            /* 顶层纹理：同底层 */
+            background-image: linear-gradient(to right, transparent 0%, transparent 95%, rgba(0,0,0,0.05) 95%, rgba(0,0,0,0.05) 100%);
+            background-size: 15px 100%;
         }
 
-        /* 蛋糕顶层奶油装饰 */
-        .cake-top {
+        /* 顶层奶油层（真实淡奶油色） */
+        .cake-cream-top {
             position: absolute;
-            top: -15px;
-            left: 10px;
-            width: 100px;
+            top: -20px;
+            left: 0;
+            width: 120px;
             height: 25px;
-            background: #ff6b6b;
-            border-radius: 50%;
-            box-shadow: 0 3px 0 rgba(230, 80, 80, 0.5); /* 阴影增强立体感 */
+            background: #fff8f0; /* 米白，模拟淡奶油 */
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.03);
         }
 
-        /* 奶油点缀（增加真实感） */
-        .cream-dot {
+        /* 奶油花（顶层装饰） */
+        .cream-flower {
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #ff6b6b;
+            width: 18px;
+            height: 18px;
+            background: #fff8f0; /* 与奶油层同色 */
             border-radius: 50%;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.05);
         }
 
-        /* 蜡烛样式（初始隐藏，等待下落） */
+        /* 奶油花中心（点缀色） */
+        .cream-flower-center {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 水果装饰（草莓、蓝莓） */
+        .cake-fruit {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.1);
+        }
+
+        /* 草莓样式 */
+        .fruit-strawberry {
+            width: 22px;
+            height: 22px;
+            background: #ff4d4d; /* 草莓红 */
+        }
+
+        /* 草莓叶子 */
+        .strawberry-leaf {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 8px;
+            background: #4ca866; /* 叶子绿 */
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* 蓝莓样式 */
+        .fruit-blueberry {
+            width: 18px;
+            height: 18px;
+            background: #4a6fa5; /* 蓝莓蓝 */
+        }
+
+        /* 蜡烛样式（真实感优化） */
         .candle {
             position: absolute;
             width: 5px;
             height: 30px;
             background: #fff;
             border-radius: 2px;
-            bottom: 100%; /* 初始在蛋糕顶部上方 */
+            top: -30px; /* 从奶油层上方伸出 */
             left: 50%;
             transform: translateX(-50%);
             opacity: 0;
             animation: candleFall 0.8s ease-out forwards;
-            animation-delay: 1s; /* 蜡烛比蛋糕晚下落，模拟依次掉落 */
-            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1); /* 蜡烛纹理 */
+            animation-delay: 1s;
+            /* 蜡烛纹理：侧边阴影 */
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
         }
 
-        /* 蜡烛火焰 */
+        /* 蜡烛火焰（渐变更真实） */
         .flame {
             position: absolute;
             width: 10px;
             height: 15px;
-            background: linear-gradient(180deg, #ffd9d3, #ff9a3c); /* 渐变火焰，更真实 */
+            background: linear-gradient(180deg, #fff3bf, #ff9a3c, #ff6b35); /* 奶油黄→橙→红，模拟真实火焰 */
             border-radius: 50% 50% 20% 20%;
             top: -18px;
             left: -2.5px;
             animation: flicker 0.5s infinite alternate;
-            box-shadow: 0 0 12px #ff6b6b, 0 0 8px rgba(255,107,107,0.6); /* 火焰光晕 */
+            box-shadow: 0 0 15px #ff9a3c, 0 0 10px rgba(255,154,60,0.7);
         }
 
         @keyframes flicker {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.15); opacity: 0.9; }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.15) rotate(5deg); opacity: 0.9; }
         }
 
-        /* 蛋糕下落动画（从上方掉落到容器底部） */
+        /* 蛋糕下落动画 */
         @keyframes cakeFall {
             0% { 
-                transform: translateX(-50%) translateY(-300px); /* 初始在容器上方 */
+                transform: translateX(-50%) translateY(-300px); 
                 opacity: 0; 
             }
             80% { 
-                transform: translateX(-50%) translateY(10px); /* 轻微下坠后回弹 */
+                transform: translateX(-50%) translateY(10px); 
                 opacity: 1; 
             }
             100% { 
-                transform: translateX(-50%) translateY(0); /* 最终停在容器底部 */
+                transform: translateX(-50%) translateY(0); 
                 opacity: 1; 
             }
         }
 
-        /* 蜡烛下落动画（从更上方掉落，落在蛋糕顶层） */
+        /* 蜡烛下落动画 */
         @keyframes candleFall {
             0% { 
-                transform: translateX(-50%) translateY(-200px); /* 初始在蛋糕上方更高处 */
+                transform: translateX(-50%) translateY(-200px); 
                 opacity: 0; 
             }
             80% { 
-                transform: translateX(-50%) translateY(5px); /* 轻微下坠后回弹 */
+                transform: translateX(-50%) translateY(5px); 
                 opacity: 1; 
             }
             100% { 
-                transform: translateX(-50%) translateY(0); /* 最终落在蛋糕顶层 */
+                transform: translateX(-50%) translateY(0); 
                 opacity: 1; 
             }
         }
@@ -354,23 +406,42 @@
             }
 
             /* 移动端蛋糕尺寸适配 */
-            .cake {
-                width: 150px;
-            }
             .cake-layer-1 {
+                width: 150px;
                 height: 50px;
             }
             .cake-layer-2 {
-                height: 45px;
                 width: 125px;
+                height: 45px;
             }
             .cake-layer-3 {
-                height: 35px;
                 width: 100px;
+                height: 35px;
             }
-            .cake-top {
-                width: 80px;
-                height: 20px;
+            .cake-cream-top {
+                width: 100px;
+                height: 22px;
+            }
+            /* 移动端水果/奶油花尺寸适配 */
+            .cream-flower {
+                width: 15px;
+                height: 15px;
+            }
+            .cream-flower-center {
+                width: 7px;
+                height: 7px;
+            }
+            .fruit-strawberry {
+                width: 18px;
+                height: 18px;
+            }
+            .strawberry-leaf {
+                width: 10px;
+                height: 7px;
+            }
+            .fruit-blueberry {
+                width: 15px;
+                height: 15px;
             }
         }
     </style>
@@ -596,85 +667,131 @@
             }, 1500);
         }
 
-        // 创建三层蛋糕（含下落动画和奶油装饰）
+        // 创建三层真实感蛋糕（含奶油+水果装饰）
         function createCake() {
             const container = document.getElementById('cakeContainer');
             container.innerHTML = ''; // 清空容器
 
-            // 1. 创建蛋糕主体（三层结构）
+            // 1. 创建蛋糕主体（底层→中层→顶层，下宽上窄）
             const cake = document.createElement('div');
             cake.className = 'cake';
 
-            // 蛋糕底层
-            const layer1 = document.createElement('div');
-            layer1.className = 'cake-layer-1';
-            // 底层奶油点缀（3个）
-            addCreamDots(layer1, 3, 15, 20); 
-            cake.appendChild(layer1);
-
-            // 蛋糕中层
-            const layer2 = document.createElement('div');
-            layer2.className = 'cake-layer-2';
-            // 中层奶油点缀（2个）
-            addCreamDots(layer2, 2, 25, 15); 
-            cake.appendChild(layer2);
-
-            // 蛋糕顶层
+            // 蛋糕顶层（最窄，先创建）
             const layer3 = document.createElement('div');
             layer3.className = 'cake-layer-3';
-            // 顶层奶油点缀（1个）
-            addCreamDots(layer3, 1, 45, 10); 
+            // 顶层奶油层
+            const creamTop = document.createElement('div');
+            creamTop.className = 'cake-cream-top';
+            layer3.appendChild(creamTop);
+            // 添加顶层奶油花（5个，均匀分布）
+            addCreamFlowers(creamTop);
+            // 添加顶层水果（2草莓+3蓝莓，穿插分布）
+            addCakeFruits(creamTop);
             cake.appendChild(layer3);
 
-            // 蛋糕顶层奶油
-            const cakeTop = document.createElement('div');
-            cakeTop.className = 'cake-top';
-            layer3.appendChild(cakeTop);
+            // 蛋糕中层（中间宽，插入顶层下方）
+            const layer2 = document.createElement('div');
+            layer2.className = 'cake-layer-2';
+            cake.insertBefore(layer2, layer3);
 
-            // 2. 创建蜡烛（22根，均匀分布在顶层）
+            // 蛋糕底层（最宽，插入中层下方）
+            const layer1 = document.createElement('div');
+            layer1.className = 'cake-layer-1';
+            cake.insertBefore(layer1, layer2);
+
+            // 2. 创建蜡烛容器（放在奶油层上，对齐顶层）
             const candleContainer = document.createElement('div');
-            candleContainer.style.position = 'absolute';
-            width = 120; // 顶层宽度
+            candleContainer.style.position = 'relative';
+            candleContainer.style.width = '120px'; // 与顶层宽度一致
+            candleContainer.style.height = '30px'; // 与蜡烛高度一致
+            candleContainer.style.margin = '0 auto'; // 水平居中
+            creamTop.appendChild(candleContainer); // 蜡烛容器挂在奶油层上
+
+            // 创建22根蜡烛（均匀分布在奶油层上）
             const candleCount = 22;
-            const candleSpacing = width / (candleCount + 1); // 蜡烛间距
+            const candleSpacing = 120 / (candleCount + 1); // 蜡烛间距
 
             for (let i = 0; i < candleCount; i++) {
                 const candle = document.createElement('div');
                 candle.className = 'candle';
-                // 计算蜡烛水平位置（均匀分布）
-                candle.style.left = (candleSpacing * (i + 1) - 2.5) + 'px'; // -2.5px 是蜡烛半宽，居中对齐
+                // 计算蜡烛水平位置（避免与水果重叠，微调偏移）
+                const leftPos = candleSpacing * (i + 1) - 2.5;
+                candle.style.left = leftPos + 'px';
 
                 const flame = document.createElement('div');
                 flame.className = 'flame';
-                flame.id = 'flame-' + i; // 给火焰加ID，用于后续熄灭动画
+                flame.id = 'flame-' + i; // 火焰ID，用于熄灭动画
 
                 candle.appendChild(flame);
                 candleContainer.appendChild(candle);
             }
 
-            // 3. 组装蛋糕和蜡烛
-            cake.appendChild(candleContainer);
+            // 3. 组装蛋糕到容器
             container.appendChild(cake);
 
-            // 4. 自动熄灭蜡烛（保持原有逻辑）
+            // 4. 自动熄灭蜡烛
             setTimeout(() => {
                 blowOutCandles();
-            }, 2000); // 延迟2秒再熄灭，给用户看清楚蛋糕组合效果
+            }, 2000); // 延迟2秒，给用户看清楚装饰细节
         }
 
-        // 给蛋糕层添加奶油点缀（增强真实感）
-        function addCreamDots(layer, count, leftStep, top) {
-            for (let i = 0; i < count; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'cream-dot';
-                // 均匀分布奶油点
-                dot.style.left = (leftStep + (i * 40)) + '%'; 
-                dot.style.top = top + 'px';
-                layer.appendChild(dot);
-            }
+        // 添加顶层奶油花（5个，带彩色中心）
+        function addCreamFlowers(creamTop) {
+            // 奶油花位置坐标（相对奶油层）
+            const flowerPositions = [
+                { left: '15%', top: '30%', centerColor: '#ff6b6b' }, // 粉红花心
+                { left: '35%', top: '60%', centerColor: '#4a6fa5' }, // 蓝莓色花心
+                { left: '50%', top: '20%', centerColor: '#ff4d4d' }, // 草莓色花心
+                { left: '65%', top: '70%', centerColor: '#ff8e53' }, // 橙色花心
+                { left: '85%', top: '40%', centerColor: '#4ca866' }  // 绿色花心
+            ];
+
+            flowerPositions.forEach(pos => {
+                const flower = document.createElement('div');
+                flower.className = 'cream-flower';
+                flower.style.left = pos.left;
+                flower.style.top = pos.top;
+
+                // 奶油花中心
+                const center = document.createElement('div');
+                center.className = 'cream-flower-center';
+                center.style.background = pos.centerColor;
+
+                flower.appendChild(center);
+                creamTop.appendChild(flower);
+            });
         }
 
-        // 熄灭蜡烛动画（保持原有逻辑）
+        // 添加顶层水果（2草莓+3蓝莓）
+        function addCakeFruits(creamTop) {
+            // 水果位置坐标（相对奶油层，避开奶油花）
+            const fruits = [
+                { type: 'strawberry', left: '25%', top: '50%' }, // 草莓1
+                { type: 'blueberry', left: '40%', top: '30%' },  // 蓝莓1
+                { type: 'blueberry', left: '55%', top: '60%' },  // 蓝莓2
+                { type: 'strawberry', left: '70%', top: '30%' }, // 草莓2
+                { type: 'blueberry', left: '80%', top: '60%' }   // 蓝莓3
+            ];
+
+            fruits.forEach(fruit => {
+                const fruitEl = document.createElement('div');
+                if (fruit.type === 'strawberry') {
+                    fruitEl.className = 'cake-fruit fruit-strawberry';
+                    // 添加草莓叶子
+                    const leaf = document.createElement('div');
+                    leaf.className = 'strawberry-leaf';
+                    fruitEl.appendChild(leaf);
+                } else {
+                    fruitEl.className = 'cake-fruit fruit-blueberry';
+                }
+                fruitEl.style.left = fruit.left;
+                fruitEl.style.top = fruit.top;
+
+                creamTop.appendChild(fruitEl);
+            });
+        }
+
+        // 熄灭蜡烛动画
         function blowOutCandles() {
             let candlesBlown = 0;
             const totalCandles = 22;
@@ -684,8 +801,8 @@
                     const flame = document.getElementById('flame-' + candlesBlown);
                     if (flame) {
                         flame.animate([
-                            { transform: 'scale(1)', opacity: 1 },
-                            { transform: 'scale(1.5) translateX(3px)', opacity: 0 } // 火焰向右侧熄灭，更自然
+                            { transform: 'scale(1) rotate(0deg)', opacity: 1 },
+                            { transform: 'scale(1.5) translateX(5px) rotate(10deg)', opacity: 0 } // 向右飘灭，更自然
                         ], {
                             duration: 300,
                             easing: 'ease-out'
@@ -696,7 +813,7 @@
                         };
                     }
                 } else {
-                    // 所有蜡烛熄灭后显示许愿弹窗
+                    // 所有蜡烛熄灭后弹窗
                     setTimeout(() => {
                         alert('🎉 许愿成功！愿你在跟随Js的这条道路上力上加力，恩上加恩！');
                     }, 500);
